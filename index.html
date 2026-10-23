@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ManaBox para LigaMagic - Conversor PWA</title>
+    <meta name="description" content="Conversor rápido e offline de listas de cartas exportadas do ManaBox para o formato exato de importação da LigaMagic / Liga Mestre." />
+    <meta property="og:title" content="ManaBox para LigaMagic - Conversor PWA" />
+    <meta property="og:description" content="Conversor rápido e offline de listas de cartas exportadas do ManaBox para o formato exato de importação da LigaMagic / Liga Mestre." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- PWA Settings & Web App Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Mana2Liga" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+  </head>
+  <body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-amber-500/30 selection:text-amber-200">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Register Service Worker for PWA with automatic cache update
+      if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./service-worker.js').then((reg) => {
+            reg.update();
+          }).catch((err) => {
+            console.warn('ServiceWorker registration error:', err);
+          });
+
+          let refreshing = false;
+          navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+              refreshing = true;
+              window.location.reload();
+            }
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,6 @@
+{
+  "name": "ManaBox para LigaMagic - PWA",
+  "description": "Conversor rápido e offline de listas de cartas exportadas do ManaBox para o formato exato de importação da LigaMagic / Liga Mestre.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
